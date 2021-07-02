@@ -1,11 +1,17 @@
 package com.dobrucali.product24.data.entity
 
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
+@Entity(tableName = "product")
 @Parcelize
 data class ProductsItem(
+
+    @PrimaryKey
+    val id: Int? = null,
 
     @field:SerializedName("longDescription")
 	val longDescription: String? = null,
@@ -36,9 +42,6 @@ data class ProductsItem(
 
     @field:SerializedName("colorCode")
 	val colorCode: String? = null,
-
-    @field:SerializedName("id")
-	val id: Int? = null,
 
     @field:SerializedName("type")
 	val type: String? = null

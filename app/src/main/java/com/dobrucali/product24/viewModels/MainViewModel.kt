@@ -7,12 +7,14 @@ import androidx.lifecycle.viewModelScope
 import com.dobrucali.product24.data.entity.FilterType
 import com.dobrucali.product24.data.entity.ProductsItem
 import com.dobrucali.product24.data.entity.Status
+import com.dobrucali.product24.task.FavouriteTask
 import com.dobrucali.product24.task.ProductTask
 import com.google.android.material.tabs.TabLayout
 import kotlinx.coroutines.launch
 
 class MainViewModel(
-    private val productTask: ProductTask
+    private val productTask: ProductTask,
+    private val favouriteTask: FavouriteTask
 ) : BaseViewModel() {
 
     private val _menuItems = MutableLiveData<List<String>>()
@@ -27,9 +29,7 @@ class MainViewModel(
     val productList: LiveData<List<ProductsItem>>
         get() = _productList
 
-    private val _favouriteList = MutableLiveData<List<Int>>()
-    val favouriteList: LiveData<List<Int>>
-        get() = _favouriteList
+    private val favouriteList: LiveData<List<ProductsItem>> = favouriteTask.getFavouriteProductList()
 
     init {
         _currentTab.value = DEFAULT_TAB
