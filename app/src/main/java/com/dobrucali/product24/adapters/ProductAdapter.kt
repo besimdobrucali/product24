@@ -7,9 +7,8 @@ import com.dobrucali.product24.data.entity.AvailabilityType
 import com.dobrucali.product24.data.entity.ProductsItem
 import com.dobrucali.product24.databinding.ItemProductAvailableBinding
 import com.dobrucali.product24.databinding.ItemProductNotAvailableBinding
-import com.dobrucali.product24.utils.OnClickListener
 
-class ProductAdapter(private val onClickListener: OnClickListener) :
+class ProductAdapter(private val clickListener: (ProductsItem) -> Unit) :
     ListAdapter<ProductsItem, BaseViewHolder>(ProductDiffCallBack) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
@@ -33,7 +32,7 @@ class ProductAdapter(private val onClickListener: OnClickListener) :
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
         val product = getItem(position)
         holder.itemView.setOnClickListener {
-            onClickListener.onClick(product)
+            clickListener.invoke(product)
         }
         holder.bind(product)
     }

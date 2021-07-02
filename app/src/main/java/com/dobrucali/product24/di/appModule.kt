@@ -5,6 +5,7 @@ import com.dobrucali.product24.di.module.ContextModule
 import com.dobrucali.product24.di.module.RetrofitClient
 import com.dobrucali.product24.task.ProductTask
 import com.dobrucali.product24.viewModels.MainViewModel
+import com.dobrucali.product24.viewModels.ProductDetailViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -26,5 +27,6 @@ val appModule = module {
 
     // View Models
     viewModel { MainViewModel(get()) }
+    viewModel { ProductDetailViewModel(get()) }
 
 }

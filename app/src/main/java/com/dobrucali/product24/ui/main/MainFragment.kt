@@ -5,11 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.navigation.fragment.findNavController
 import com.dobrucali.product24.R
 import com.dobrucali.product24.adapters.ProductAdapter
+import com.dobrucali.product24.data.entity.ProductsItem
 import com.dobrucali.product24.databinding.FragmentMainBinding
 import com.dobrucali.product24.ui.base.BaseFragment
-import com.dobrucali.product24.utils.OnClickListener
+import com.dobrucali.product24.utils.Constants
 import com.dobrucali.product24.viewModels.MainViewModel
 import org.koin.android.ext.android.inject
 
@@ -53,11 +55,15 @@ class MainFragment : BaseFragment<MainViewModel>() {
             }
         })
 
-        binding.productRecyclerView.adapter = ProductAdapter(OnClickListener {
+        binding.productRecyclerView.adapter = ProductAdapter {
+            navigateProductDetail(it)
+        }
 
-        })
-
-        binding.swipeRefreshLayout.setColorSchemeResources(R.color.purple_200, R.color.purple_500, R.color.purple_200)
+        binding.swipeRefreshLayout.setColorSchemeResources(
+            R.color.purple_200,
+            R.color.purple_500,
+            R.color.purple_200
+        )
         binding.swipeRefreshLayout.setOnRefreshListener {
             binding.swipeRefreshLayout.isRefreshing = false
             viewModel.getProducts()
@@ -66,4 +72,14 @@ class MainFragment : BaseFragment<MainViewModel>() {
         return binding.root
     }
 
+    private fun navigateProductDetail(product: ProductsItem) {
+        val arguments = Bundle()
+        arguments.putParcelable(Constants.PRODUCT_KEY, product)
+        findNavController().navigate(
+            R.id.action_main_fragment_to_detail_fragment,
+            arguments,
+            null,
+            null
+        )
+    }
 }

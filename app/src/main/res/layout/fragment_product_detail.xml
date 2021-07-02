@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.dobrucali.product24.viewModels.ProductDetailViewModel" />
+
+    </data>
+
+    <ScrollView
+        android:id="@+id/detail_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/product_imageView"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:gravity="center_vertical"
+                app:imageUrl="@{viewModel.product.imageURL}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/name_textView"
+                style="@style/title_text_style"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/default_margin"
+                android:text="@{viewModel.product.name}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/product_imageView"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Name" />
+
+            <TextView
+                android:id="@+id/price_textView"
+                style="@style/default_text_style"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/default_margin"
+                android:layout_marginTop="8dp"
+                android:textSize="14sp"
+                app:formattedPrice="@{viewModel.product.price}"
+                app:goneUnless="@{viewModel.product.available}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/product_imageView"
+                app:layout_constraintTop_toBottomOf="@+id/name_textView"
+                tools:text="$100" />
+
+            <TextView
+                android:id="@+id/description_textView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_margin"
+                app:layout_constraintTop_toBottomOf="@+id/product_imageView"
+                app:layout_constraintStart_toStartOf="@+id/product_imageView"
+                app:layout_constraintEnd_toEndOf="@+id/name_textView"
+                style="@style/default_text_style"
+                android:textSize="14sp"
+                android:text="@{viewModel.product.description}"
+                tools:text="Description" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/change_favourite_button"
+                style="@style/GreenTextButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/large_margin"
+                android:layout_marginVertical="@dimen/default_margin"
+                android:onClick="@{() -> viewModel.onChangeFavouriteOptionClicked()}"
+                android:text="@{ viewModel.isFavourite ? @string/remove_favourite : @string/add_favourite}"
+                tools:text="@string/add_favourite"
+                app:layout_constraintTop_toBottomOf="@id/description_textView"/>
+
+            <TextView
+                android:id="@+id/long_description_textView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_margin"
+                app:layout_constraintTop_toBottomOf="@+id/change_favourite_button"
+                app:layout_constraintStart_toStartOf="@+id/product_imageView"
+                app:layout_constraintEnd_toEndOf="@+id/name_textView"
+                style="@style/default_text_style"
+                android:textSize="14sp"
+                android:text="@{viewModel.product.longDescription}"
+                tools:text="Long Description" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+
+</layout>

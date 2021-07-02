@@ -5,13 +5,35 @@
     android:id="@+id/main"
     app:startDestination="@id/main_fragment">
 
-        <!-- Main Screen -->
-        <fragment
-            android:id="@+id/main_fragment"
-            android:name="com.dobrucali.product24.ui.main.MainFragment"
-            android:label="@string/app_name"
-            tools:layout="@layout/fragment_main">
+    <!-- Main Screen -->
+    <fragment
+        android:id="@+id/main_fragment"
+        android:name="com.dobrucali.product24.ui.main.MainFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_main">
 
-        </fragment>
+        <action
+            android:id="@+id/action_main_fragment_to_detail_fragment"
+            app:destination="@id/product_detail_fragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/product_detail_fragment"
+        android:name="com.dobrucali.product24.ui.detail.ProductDetailFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_product_detail">
+
+        <argument
+            android:name="product"
+            android:defaultValue="@null"
+            app:argType="com.dobrucali.product24.data.entity.ProductsItem"
+            app:nullable="true" />
+
+    </fragment>
 
 </navigation>
