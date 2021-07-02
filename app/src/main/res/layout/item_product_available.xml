@@ -74,7 +74,7 @@
                     app:layout_constraintStart_toEndOf="@+id/product_imageView"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginHorizontal="@dimen/default_margin"
-                    style="@style/title_text_style"
+                    style="@style/default_text_style"
                     android:textSize="14sp"
                     android:text="@{productItem.description}"
                     tools:text="Description"
@@ -89,9 +89,9 @@
                     app:layout_constraintStart_toEndOf="@+id/product_imageView"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginHorizontal="@dimen/default_margin"
-                    style="@style/title_text_style"
+                    style="@style/default_text_style"
                     android:textSize="14sp"
-                    android:text="@{String.valueOf(productItem.price)}"
+                    app:formattedPrice="@{productItem.price}"
                     tools:text="$100"
                     />
 

@@ -1,7 +1,6 @@
 package com.dobrucali.product24.data.entity
 
 import android.os.Parcelable
-import com.dobrucali.product24.data.entity.Price
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 

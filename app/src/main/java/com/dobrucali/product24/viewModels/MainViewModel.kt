@@ -64,7 +64,7 @@ class MainViewModel(
         }
     }
 
-    private fun getProducts() {
+    fun getProducts() {
         viewModelScope.launch {
             try {
                 _status.value = Status.LOADING

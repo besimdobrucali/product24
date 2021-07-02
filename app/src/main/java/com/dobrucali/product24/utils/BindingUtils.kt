@@ -1,6 +1,8 @@
 package com.dobrucali.product24.utils
 
+import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -8,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.dobrucali.product24.R
 import com.dobrucali.product24.adapters.ProductAdapter
+import com.dobrucali.product24.data.entity.Price
 import com.dobrucali.product24.data.entity.ProductsItem
 
 @BindingAdapter("productListData")
@@ -29,4 +32,14 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
             )
             .into(imgView)
     }
+}
+
+@BindingAdapter("formattedPrice")
+fun bindFormattedPrice(textView: TextView, price: Price) {
+    textView.text = formattedPrice(price.value, price.currency)
+}
+
+@BindingAdapter("app:goneUnless")
+fun goneUnless(view: View, visible: Boolean) {
+    view.visibility = if (visible) View.VISIBLE else View.GONE
 }

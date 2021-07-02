@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import com.dobrucali.product24.R
 import com.dobrucali.product24.adapters.ProductAdapter
 import com.dobrucali.product24.databinding.FragmentMainBinding
 import com.dobrucali.product24.ui.base.BaseFragment
@@ -29,6 +30,7 @@ class MainFragment : BaseFragment<MainViewModel>() {
 
         viewModel.menuItems.observe(viewLifecycleOwner, { menuItems ->
             menuItems?.let {
+                binding.menuTabLayout.removeAllTabs()
                 menuItems.forEach { header ->
                     binding.menuTabLayout.apply {
                         addTab(newTab().setText(header).setTag(header))
@@ -54,6 +56,12 @@ class MainFragment : BaseFragment<MainViewModel>() {
         binding.productRecyclerView.adapter = ProductAdapter(OnClickListener {
 
         })
+
+        binding.swipeRefreshLayout.setColorSchemeResources(R.color.purple_200, R.color.purple_500, R.color.purple_200)
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            binding.swipeRefreshLayout.isRefreshing = false
+            viewModel.getProducts()
+        }
 
         return binding.root
     }
