@@ -83,7 +83,7 @@
                 android:layout_marginHorizontal="@dimen/large_margin"
                 android:layout_marginVertical="@dimen/default_margin"
                 android:onClick="@{() -> viewModel.onChangeFavouriteOptionClicked()}"
-                android:text="@{ viewModel.isFavourite ? @string/remove_favourite : @string/add_favourite}"
+                android:text="@{ viewModel.isFavouriteFlag ? @string/remove_favourite : @string/add_favourite}"
                 tools:text="@string/add_favourite"
                 app:layout_constraintTop_toBottomOf="@id/description_textView"/>
 

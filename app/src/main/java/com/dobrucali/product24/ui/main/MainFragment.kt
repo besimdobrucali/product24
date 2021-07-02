@@ -69,6 +69,12 @@ class MainFragment : BaseFragment<MainViewModel>() {
             viewModel.getProducts()
         }
 
+        viewModel.favouriteList.observe(viewLifecycleOwner, { favouriteList ->
+            favouriteList?.let {
+
+            }
+        })
+
         return binding.root
     }
 

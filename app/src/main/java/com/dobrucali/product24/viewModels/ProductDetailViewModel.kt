@@ -3,7 +3,9 @@ package com.dobrucali.product24.viewModels
 import android.os.Bundle
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.viewModelScope
+import com.dobrucali.product24.data.entity.FilterType
 import com.dobrucali.product24.data.entity.ProductsItem
 import com.dobrucali.product24.data.entity.Status
 import com.dobrucali.product24.task.FavouriteTask
@@ -18,8 +20,21 @@ class ProductDetailViewModel(
     val product: LiveData<ProductsItem>
         get() = _product
 
-    private val favouriteList: LiveData<List<ProductsItem>> =
-        favouriteTask.getFavouriteProductList()
+    private val _favouriteList = favouriteTask.getFavouriteProductList()
+    val favouriteList: LiveData<List<ProductsItem>>
+        get() = _favouriteList
+
+    private val _isFavourite = MutableLiveData<Boolean>()
+    val isFavourite: LiveData<Boolean>
+        get() = _isFavourite
+
+    fun setIsFavourite(favouriteList : List<ProductsItem>){
+        _isFavourite.value = favouriteList.contains(product.value)
+    }
+
+    val isFavouriteFlag = Transformations.map(isFavourite) {
+        it ?: false
+    }
 
     fun bindArguments(arguments: Bundle) {
         val product = arguments.getParcelable<ProductsItem>(Constants.PRODUCT_KEY)
@@ -30,10 +45,10 @@ class ProductDetailViewModel(
 
     fun onChangeFavouriteOptionClicked() {
         product.value?.let { product ->
-            if (isFavourite()) {
-                addFavourite(product)
-            } else {
+            if (isFavouriteFlag.value == true) {
                 removeFavourite(product)
+            } else {
+                addFavourite(product)
             }
         }
     }
@@ -81,9 +96,4 @@ class ProductDetailViewModel(
             }
         }
     }
-
-    fun isFavourite(): Boolean {
-        return favouriteList.value?.contains(product.value) ?: false
-    }
-
 }

@@ -29,7 +29,9 @@ class MainViewModel(
     val productList: LiveData<List<ProductsItem>>
         get() = _productList
 
-    private val favouriteList: LiveData<List<ProductsItem>> = favouriteTask.getFavouriteProductList()
+    private val _favouriteList = favouriteTask.getFavouriteProductList()
+    val favouriteList: LiveData<List<ProductsItem>>
+        get() = _favouriteList
 
     init {
         _currentTab.value = DEFAULT_TAB
@@ -41,7 +43,7 @@ class MainViewModel(
         when(currentTab){
             FilterType.ALL.ordinal -> productList
             FilterType.AVAILABLE.ordinal -> productList?.filter { it.available == true }
-            FilterType.FAVOURITE.ordinal -> productList?.filter { favouriteList.value?.contains(it.id) == true }
+            FilterType.FAVOURITE.ordinal -> favouriteList.value ?: listOf()
             else -> listOf()
         }
     }

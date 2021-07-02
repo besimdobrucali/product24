@@ -26,6 +26,12 @@ class ProductDetailFragment : BaseFragment<ProductDetailViewModel>() {
             viewModel.bindArguments(it)
         }
 
+        viewModel.favouriteList.observe(viewLifecycleOwner, { favouriteList ->
+            favouriteList?.let {
+                viewModel.setIsFavourite(favouriteList)
+            }
+        })
+
         hideKeyboard()
 
         return binding.root
